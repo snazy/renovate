@@ -104,7 +104,7 @@ describe('modules/manager/gradle-wrapper/artifacts', () => {
       );
       expect(execSnapshots).toMatchObject([
         {
-          cmd: './gradlew :wrapper --gradle-distribution-url https://services.gradle.org/distributions/gradle-6.3-bin.zip',
+          cmd: './gradlew -Dorg.gradle.jvmargs="-Xms256m -Xmx256m" --no-daemon :wrapper --gradle-distribution-url https://services.gradle.org/distributions/gradle-6.3-bin.zip',
           options: {
             cwd: '/tmp/github/some/repo',
             env: {
@@ -153,7 +153,7 @@ describe('modules/manager/gradle-wrapper/artifacts', () => {
       expect(result).toBeEmptyArray();
       expect(execSnapshots).toMatchObject([
         {
-          cmd: './gradlew :wrapper --gradle-version 5.6.4',
+          cmd: './gradlew -Dorg.gradle.jvmargs="-Xms256m -Xmx256m" --no-daemon :wrapper --gradle-version 5.6.4',
           options: { cwd: '/tmp/github/some/repo' },
         },
       ]);
@@ -210,7 +210,7 @@ describe('modules/manager/gradle-wrapper/artifacts', () => {
             ' bash -l -c "' +
             'install-tool java 11.0.1' +
             ' && ' +
-            './gradlew :wrapper --gradle-distribution-url https://services.gradle.org/distributions/gradle-6.3-bin.zip --gradle-distribution-sha256-sum 038794feef1f4745c6347107b6726279d1c824f3fc634b60f86ace1e9fbd1768' +
+            './gradlew -Dorg.gradle.jvmargs=\\"-Xms256m -Xmx256m\\" --no-daemon :wrapper --gradle-distribution-url https://services.gradle.org/distributions/gradle-6.3-bin.zip --gradle-distribution-sha256-sum 038794feef1f4745c6347107b6726279d1c824f3fc634b60f86ace1e9fbd1768' +
             '"',
           options: { cwd: '/tmp/github/some/repo' },
         },
@@ -252,7 +252,7 @@ describe('modules/manager/gradle-wrapper/artifacts', () => {
       expect(execSnapshots).toMatchObject([
         { cmd: 'install-tool java 11.0.1' },
         {
-          cmd: './gradlew :wrapper --gradle-distribution-url https://services.gradle.org/distributions/gradle-6.3-bin.zip --gradle-distribution-sha256-sum 038794feef1f4745c6347107b6726279d1c824f3fc634b60f86ace1e9fbd1768',
+          cmd: './gradlew -Dorg.gradle.jvmargs="-Xms256m -Xmx256m" --no-daemon :wrapper --gradle-distribution-url https://services.gradle.org/distributions/gradle-6.3-bin.zip --gradle-distribution-sha256-sum 038794feef1f4745c6347107b6726279d1c824f3fc634b60f86ace1e9fbd1768',
           options: { cwd: '/tmp/github/some/repo' },
         },
       ]);
@@ -319,7 +319,7 @@ describe('modules/manager/gradle-wrapper/artifacts', () => {
       );
       expect(execSnapshots).toMatchObject([
         {
-          cmd: './gradlew :wrapper --gradle-distribution-url https://services.gradle.org/distributions/gradle-6.3-bin.zip',
+          cmd: './gradlew -Dorg.gradle.jvmargs="-Xms256m -Xmx256m" --no-daemon :wrapper --gradle-distribution-url https://services.gradle.org/distributions/gradle-6.3-bin.zip',
           options: {
             cwd: '/tmp/github/some/repo/sub',
             env: {
@@ -450,7 +450,7 @@ describe('modules/manager/gradle-wrapper/artifacts', () => {
       expect(res).toStrictEqual(updatedArtifacts);
       expect(execSnapshots).toMatchObject([
         {
-          cmd: './gradlew :wrapper --gradle-version 8.2',
+          cmd: './gradlew -Dorg.gradle.jvmargs="-Xms256m -Xmx256m" --no-daemon :wrapper --gradle-version 8.2',
         },
       ]);
     });
