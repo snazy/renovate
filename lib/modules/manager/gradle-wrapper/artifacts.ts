@@ -28,6 +28,7 @@ import {
   gradleWrapperFileName,
   prepareGradleCommand,
 } from './utils';
+import { GlobalConfig } from '../../../config/global';
 
 const http = new Http('gradle-wrapper');
 const groovy = lang.createLang('groovy');
@@ -146,12 +147,18 @@ export async function updateArtifacts({
       logger.info('No gradlew found - skipping Artifacts update');
       return null;
     }
+
     // Limit the Gradle daemon Java heap memory size to prevent OOM errors
     // leading to Renovate kernel-OOMs and timeouts.
     // This command line option effectively overrides any custom setting
     // in a project's `gradle.properties` file.
     // See https://github.com/renovatebot/renovate/issues/39558
-    cmd += ' -Dorg.gradle.jvmargs="-Xms256m -Xmx256m"';
+    const globalConfig = GlobalConfig.get();
+    const gradleWrapperJvmMaxMemory =
+      globalConfig.gradle?.wrapper?.jvmMaxMemory || 256;
+    const gradleWrapperJvmMemory =
+      globalConfig.gradle?.wrapper?.jvmMemory || gradleWrapperJvmMaxMemory;
+    cmd += ` -Dorg.gradle.jvmargs="-Xms${gradleWrapperJvmMemory}m -Xmx${gradleWrapperJvmMaxMemory}m"`;
     // Tell Gradle to not keep the daemon running after the 'wrapper' task
     // completes
     cmd += ' --no-daemon';
