@@ -159,9 +159,6 @@ export async function updateArtifacts({
     const gradleWrapperJvmMemory =
       globalConfig.gradle?.wrapper?.jvmMemory || gradleWrapperJvmMaxMemory;
     cmd += ` -Dorg.gradle.jvmargs="-Xms${gradleWrapperJvmMemory}m -Xmx${gradleWrapperJvmMaxMemory}m"`;
-    // Tell Gradle to not keep the daemon running after the 'wrapper' task
-    // completes
-    cmd += ' --no-daemon';
     cmd += ' :wrapper';
 
     let checksum: string | null = null;
